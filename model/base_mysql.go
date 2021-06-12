@@ -20,7 +20,9 @@ const (
 )
 
 //Db数据库连接池
-var DB *sql.DB
+var (
+	DB *sql.DB
+)
 
 //注意方法名大写，就是public
 func InitMySQLDB()  {
@@ -29,7 +31,7 @@ func InitMySQLDB()  {
 
 	//打开数据库,前者是驱动名，所以要导入： _ "github.com/go-sql-driver/mysql"
 	DB, _ = sql.Open("mysql", path)
-	defer DB.Close()
+	//defer DB.Close()
 	// 设置数据库最大连接数
 	DB.SetMaxOpenConns(100)
 	//设置连接的最大可复用时间

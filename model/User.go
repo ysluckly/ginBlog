@@ -3,6 +3,8 @@ package model
 import (
 	"log"
 
+	"ginBlog/utils/errmsg"
+
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -19,9 +21,9 @@ func CheckUser(name string) (code int) {
 	var user User
 	db.Select("id").Where("username = ?", name).First(&user)
 	if user.ID > 0 {
-		return 1 //1001
+		return errmsg.ERROR_USERNAME_USED //1001
 	}
-	return 1
+	return errmsg.SUCCSE
 }
 
 // CheckUpUser 更新查询
@@ -42,9 +44,9 @@ func CreateUser(data *User) int {
 	//data.Password = ScryptPw(data.Password)
 	err := db.Create(&data).Error
 	if err != nil {
-		return 1 // 500
+		return errmsg.ERROR // 500
 	}
-	return 1
+	return errmsg.SUCCSE
 }
 
 // GetUser 查询用户

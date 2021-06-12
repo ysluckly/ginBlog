@@ -28,7 +28,7 @@ func init() {
 	}
 	LoadServer(file)
 	LoadDatabase(file)
-	fmt.Println("config init success", AppMode, HttpPort, Db, DbHost, DbPort, DbUser, DbPassWd, DbName)
+	fmt.Println("config init success", AppMode, HttpPort, Db, DbHost, DbPort, DbUser, DbName)
 }
 
 // LoadServer 加载服务配置
