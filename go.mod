@@ -3,6 +3,7 @@ module ginBlog
 go 1.16
 
 require (
+	github.com/YS-THX/ginBlog v0.0.0-20210612081221-bc95582662ec // indirect
 	github.com/gin-gonic/gin v1.7.2 // indirect
 	github.com/go-playground/validator/v10 v10.6.1 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
