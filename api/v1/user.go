@@ -3,6 +3,7 @@ package v1
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"ginBlog/model"
 	"ginBlog/utils/errmsg"
@@ -69,32 +70,32 @@ func GetUserInfo(c *gin.Context) {
 
 // GetUsers 查询用户列表
 func GetUsers(c *gin.Context) {
-	/*	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
-		pageNum, _ := strconv.Atoi(c.Query("pagenum"))
-		username := c.Query("username")
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
+	username := c.Query("username")
 
-		switch {
-		case pageSize >= 100:
-			pageSize = 100
-		case pageSize <= 0:
-			pageSize = 10
-		}
+	switch {
+	case pageSize >= 100:
+		pageSize = 100
+	case pageSize <= 0:
+		pageSize = 10
+	}
 
-		if pageNum == 0 {
-			pageNum = 1
-		}
+	if pageNum == 0 {
+		pageNum = 1
+	}
 
-		data, total := model.GetUsers(username, pageSize, pageNum)
+	data, total := model.GetUsers(username, pageSize, pageNum)
 
-		code = errmsg.SUCCSE
-		c.JSON(
-			http.StatusOK, gin.H{
-				"status":  code,
-				"data":    data,
-				"total":   total,
-				"message": errmsg.GetErrMsg(code),
-			},
-		)*/
+	code = errmsg.SUCCSE
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  code,
+			"data":    data,
+			"total":   total,
+			"message": errmsg.GetErrMsg(code),
+		},
+	)
 }
 
 // EditUser 编辑用户
