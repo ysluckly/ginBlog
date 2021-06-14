@@ -1,19 +1,23 @@
 package model
 
 import (
+	"fmt"
 	"log"
 
 	"ginBlog/utils/errmsg"
 
+	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
-	"gorm.io/gorm"
 )
 
+// validate:"required,min=4,max=12" label:"用户名"`
+// validate:"required,min=6,max=120" label:"密码"`
+// validate:"required,gte=2" label:"角色码"
 type User struct {
 	gorm.Model
-	Username string `gorm:"type:varchar(20);not null " json:"username" validate:"required,min=4,max=12" label:"用户名"`
-	Password string `gorm:"type:varchar(500);not null" json:"password" validate:"required,min=6,max=120" label:"密码"`
-	Role     int    `gorm:"type:int;DEFAULT:2" json:"role" validate:"required,gte=2" label:"角色码"`
+	Username string `gorm:"type:varchar(20);not null " json:"username" `
+	Passwd string `gorm:"type:varchar(500);not null" json:"passwd"`
+	Role     int    `gorm:"type:int" json:"role" `
 }
 
 // CheckUser 查询用户是否存在
@@ -40,8 +44,8 @@ func CheckUpUser(id int, name string) (code int) {
 }
 
 // CreateUser 新增用户
-func CreateUser(data *User) int {
-	//data.Password = ScryptPw(data.Password)
+func CreateUser(data User) int {
+	fmt.Println(data)
 	err := db.Create(&data).Error
 	if err != nil {
 		return errmsg.ERROR // 500
@@ -118,22 +122,22 @@ func DeleteUser(id int) int {
 	return 1
 }
 
-// BeforeCreate 密码加密&权限控制
+/*// BeforeCreate 密码加密&权限控制
 func (u *User) BeforeCreate(_ *gorm.DB) (err error) {
-	u.Password = ScryptPw(u.Password)
+	u.Passwd = ScryptPw(u.Passwd)
 	u.Role = 2
 	return nil
 }
 
 func (u *User) BeforeUpdate(_ *gorm.DB) (err error) {
-	u.Password = ScryptPw(u.Password)
+	u.Passwd = ScryptPw(u.Passwd)
 	return nil
-}
+}*/
 
 // ScryptPw 生成密码
 func ScryptPw(password string) string {
 	const cost = 10
-
+	fmt.Println("ScryptPw  starting...")
 	HashPw, err := bcrypt.GenerateFromPassword([]byte(password), cost)
 	if err != nil {
 		log.Fatal(err)
@@ -149,7 +153,7 @@ func CheckLogin(username string, password string) (User, int) {
 
 	db.Where("username = ?", username).First(&user)
 
-	PasswordErr = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	PasswordErr = bcrypt.CompareHashAndPassword([]byte(user.Passwd), []byte(password))
 
 	if user.ID == 0 {
 		return user, 1
@@ -170,7 +174,7 @@ func CheckLoginFront(username string, password string) (User, int) {
 
 	db.Where("username = ?", username).First(&user)
 
-	PasswordErr = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	PasswordErr = bcrypt.CompareHashAndPassword([]byte(user.Passwd), []byte(password))
 	if user.ID == 0 {
 		return user, 1
 	}

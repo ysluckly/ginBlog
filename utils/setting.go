@@ -21,7 +21,7 @@ var (
 // init 初始化
 func init() {
 	// 加载配置
-	file, err := ini.Load("../config/config.ini")
+	file, err := ini.Load("config/config.ini")
 	if err != nil {
 		fmt.Println("config init error", err)
 		return

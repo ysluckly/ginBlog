@@ -7,8 +7,8 @@ import (
 
 	"ginBlog/utils"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 var (
@@ -19,7 +19,7 @@ var (
 func InitGORMDB(){
 	path := strings.Join([]string{utils.DbUser, ":", utils.DbPassWd, "@tcp(",utils.DbHost, ":", utils.DbPort, ")/", utils.DbName, "?charset=utf8"}, "")
 	db, err = gorm.Open(utils.Db, path)
-	if err!= nil{
+	if err != nil{
 		fmt.Println("GORM db init faild")
 		panic(err)
 	}

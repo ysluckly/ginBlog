@@ -1,7 +1,7 @@
 package model
 
 import (
-	"gorm.io/gorm"
+	"github.com/jinzhu/gorm"
 )
 
 type Comment struct {

@@ -33,8 +33,8 @@ func AddUser(c *gin.Context) {
 	*/
 	code = model.CheckUser(data.Username)
 	if code == errmsg.SUCCSE {
-		fmt.Println("CreateUser start...")
-		model.CreateUser(&data)
+		fmt.Println("CreateUser start...",data)
+		model.CreateUser(data)
 	}
 	if code == errmsg.ERROR_USERNAME_USED {
 		code = errmsg.ERROR_USERNAME_USED
