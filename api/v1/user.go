@@ -81,7 +81,7 @@ func GetUsers(c *gin.Context) {
 		pageSize = 10
 	}
 
-	if pageNum == 0 {
+	if pageNum <= 0 {
 		pageNum = 1
 	}
 
